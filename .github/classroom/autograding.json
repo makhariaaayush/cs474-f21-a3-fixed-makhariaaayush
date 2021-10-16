@@ -1,0 +1,184 @@
+{
+  "tests": [
+    {
+      "name": "A1 Test 1",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test01_DirectlyDeclaredMethods.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 2",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test02_DirectlyInheritedMethods.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 3",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test03_TransitivelyInheritedMethods.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 4",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test04_InheritedPrivateStaticAbstractMethods.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 5",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test05_ManyHierarchiesAndArguments.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 6",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test06_JavaLangObjectUp.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 7",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test07_DirectSubclasses.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 8",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test08_TransitiveSubclasses.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 9",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test09_JavaLangObjectDown.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A1 Test 10",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a1.Test10_ManyHierarchiesSubclasses.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 1",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test01_PublicStringField.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 2",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test02_PublicInheritedField.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 3",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test03_ToStringNullPrimitives.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 4",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test04_PrivateFields.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 5",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test05_StaticFields.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 6",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test06_Exceptions.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 7",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test07_Update.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 8",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test08_Debug.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 9",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test09_Collisions.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    },
+    {
+      "name": "A2 Test 10",
+      "setup": "",
+      "run": "grep 'Failures: 0, Errors: 0' target/surefire-reports/edu.uic.cs474.f21.a2.Test10_MultipleInheritanceInterfaces.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10
+    }
+  ]
+}
