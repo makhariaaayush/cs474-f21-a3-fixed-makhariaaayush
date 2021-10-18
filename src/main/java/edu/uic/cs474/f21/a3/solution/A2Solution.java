@@ -29,11 +29,13 @@ public class A2Solution implements ObjectInspector {
             fs = getAllFields(c, false);
         }
         Map<String, String> ret = new HashMap<>();
+        fs.stream()
+                .forEach(f -> f.setAccessible(true) );
 
         for (Field f : fs) {
             try {
                 String key = describeFieldName(f);
-                f.setAccessible(true);
+//                f.setAccessible(true);
                 Object valueOfTheField = f.get(o);
                 String value = describeFieldValue(f.getType(), valueOfTheField);
                 ret.put(key, value);
