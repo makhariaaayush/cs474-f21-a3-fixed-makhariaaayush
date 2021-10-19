@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 public class A2Solution implements ObjectInspector {
     String key;
@@ -134,21 +137,49 @@ public class A2Solution implements ObjectInspector {
     private String describePrimitive(Object val) {
         switch (val.getClass().getName()) {
             case "java.lang.Integer":
-                return Integer.toString((Integer) val);
+                Stream<String> StreamI1 = Stream.of(Integer.toString((Integer) val));
+                String streamToStringI = StreamI1.collect(Collectors.joining());
+                return streamToStringI;
+
             case "java.lang.Long":
-                return Long.toString((Long) val) + "#L";
+                Stream<String> StreamL1 = Stream.of(Long.toString((Long) val));
+                Stream<String> StreamL2 = Stream.of("#L");
+                Stream<String> StreamL3 = Stream.concat(StreamL1, StreamL2);
+                String streamToStringL = StreamL3.collect(Collectors.joining());
+                return streamToStringL;
+
             case "java.lang.Float":
-                return Float.toString((Float) val) + "#F";
+                Stream<String> StreamF1 = Stream.of(Float.toString((Float) val));
+                Stream<String> StreamF2 = Stream.of("#F");
+                Stream<String> StreamF3 = Stream.concat(StreamF1, StreamF2);
+                String streamToStringF = StreamF3.collect(Collectors.joining());
+                return streamToStringF;
             case "java.lang.Double":
-                return Double.toString((Double) val) + "#D";
+                Stream<String> StreamD1 = Stream.of(Double.toString(((Double) val)));
+                Stream<String> StreamD2 = Stream.of("#D");
+                Stream<String> StreamD3 = Stream.concat(StreamD1, StreamD2);
+                String streamToStringD = StreamD3.collect(Collectors.joining());
+                return streamToStringD;
             case "java.lang.Short":
-                return "0" + Integer.toOctalString((Short) val);
+                Stream<String> StreamS1 = Stream.of("0");
+                Stream<String> StreamS2 = Stream.of(Integer.toOctalString((Short) val));
+                Stream<String> StreamS3 = Stream.concat(StreamS1, StreamS2);
+                String streamToStringS = StreamS3.collect(Collectors.joining());
+                return streamToStringS;
             case "java.lang.Byte":
-                return "0x" + Integer.toHexString((Byte) val);
+                Stream<String> StreamB1 = Stream.of("0x");
+                Stream<String> StreamB2 = Stream.of(Integer.toHexString((Byte) val));
+                Stream<String> StreamB3 = Stream.concat(StreamB1, StreamB2);
+                String streamToStringB = StreamB3.collect(Collectors.joining());
+                return streamToStringB;
             case "java.lang.Character":
-                return Character.toString((Character) val);
+                Stream<String> StreamC1 = Stream.of(Character.toString((Character) val));
+                String streamToStringC = StreamC1.collect(Collectors.joining());
+                return streamToStringC;
             case "java.lang.Boolean":
-                return Boolean.toString((Boolean) val);
+                Stream<String> StreamBo1 = Stream.of(Boolean.toString((Boolean) val));
+                String streamToStringBo = StreamBo1.collect(Collectors.joining());
+                return streamToStringBo;
             default:
                 return null;
 
