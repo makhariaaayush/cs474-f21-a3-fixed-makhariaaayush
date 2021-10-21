@@ -11,14 +11,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 public class A2Solution implements ObjectInspector {
     String key;
     String value;
-    Object Obj;
-    Object Obj1;
+
 
     @Override
     public Map<String, String> describeObject(Object o) {
@@ -38,7 +36,6 @@ public class A2Solution implements ObjectInspector {
         for (Field f : fs) {
             try {
                 String key = describeFieldName(f);
-//                f.setAccessible(true);
                 Object valueOfTheField = f.get(o);
                 String value = describeFieldValue(f.getType(), valueOfTheField);
                 ret.put(key, value);
@@ -127,10 +124,12 @@ public class A2Solution implements ObjectInspector {
 
     }
 
-    private Set<Class<?>> primitive = Set.of(int.class, long.class, float.class, double.class, short.class, byte.class,
+    private final Set<Class<?>> primitive = Set.of(int.class,
+            long.class, float.class, double.class, short.class, byte.class,
             char.class, boolean.class);
 
     private boolean isPrimitive(Class<?> c) {
+
         return primitive.contains(c);
     }
 
@@ -138,48 +137,40 @@ public class A2Solution implements ObjectInspector {
         switch (val.getClass().getName()) {
             case "java.lang.Integer":
                 Stream<String> StreamI1 = Stream.of(Integer.toString((Integer) val));
-                String streamToStringI = StreamI1.collect(Collectors.joining());
-                return streamToStringI;
+                return StreamI1.reduce("", String::concat);
 
             case "java.lang.Long":
                 Stream<String> StreamL1 = Stream.of(Long.toString((Long) val));
                 Stream<String> StreamL2 = Stream.of("#L");
                 Stream<String> StreamL3 = Stream.concat(StreamL1, StreamL2);
-                String streamToStringL = StreamL3.collect(Collectors.joining());
-                return streamToStringL;
+                return StreamL3.reduce("", String::concat);
 
             case "java.lang.Float":
                 Stream<String> StreamF1 = Stream.of(Float.toString((Float) val));
                 Stream<String> StreamF2 = Stream.of("#F");
                 Stream<String> StreamF3 = Stream.concat(StreamF1, StreamF2);
-                String streamToStringF = StreamF3.collect(Collectors.joining());
-                return streamToStringF;
+                return StreamF3.reduce("", String::concat);
             case "java.lang.Double":
                 Stream<String> StreamD1 = Stream.of(Double.toString(((Double) val)));
                 Stream<String> StreamD2 = Stream.of("#D");
                 Stream<String> StreamD3 = Stream.concat(StreamD1, StreamD2);
-                String streamToStringD = StreamD3.collect(Collectors.joining());
-                return streamToStringD;
+                return StreamD3.reduce("", String::concat);
             case "java.lang.Short":
                 Stream<String> StreamS1 = Stream.of("0");
                 Stream<String> StreamS2 = Stream.of(Integer.toOctalString((Short) val));
                 Stream<String> StreamS3 = Stream.concat(StreamS1, StreamS2);
-                String streamToStringS = StreamS3.collect(Collectors.joining());
-                return streamToStringS;
+                return StreamS3.reduce("", String::concat);
             case "java.lang.Byte":
                 Stream<String> StreamB1 = Stream.of("0x");
                 Stream<String> StreamB2 = Stream.of(Integer.toHexString((Byte) val));
                 Stream<String> StreamB3 = Stream.concat(StreamB1, StreamB2);
-                String streamToStringB = StreamB3.collect(Collectors.joining());
-                return streamToStringB;
+                return StreamB3.collect(Collectors.joining());
             case "java.lang.Character":
                 Stream<String> StreamC1 = Stream.of(Character.toString((Character) val));
-                String streamToStringC = StreamC1.collect(Collectors.joining());
-                return streamToStringC;
+                return StreamC1.collect(Collectors.joining());
             case "java.lang.Boolean":
                 Stream<String> StreamBo1 = Stream.of(Boolean.toString((Boolean) val));
-                String streamToStringBo = StreamBo1.collect(Collectors.joining());
-                return streamToStringBo;
+                return StreamBo1.collect(Collectors.joining());
             default:
                 return null;
 
@@ -198,6 +189,7 @@ public class A2Solution implements ObjectInspector {
                         break;
                     }
                 }
+                assert f != null;
                 f.setAccessible(true);
                 f.set(o, e.getValue());
             } catch (ReflectiveOperationException ex) {

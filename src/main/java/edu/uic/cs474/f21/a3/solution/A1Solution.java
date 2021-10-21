@@ -1,12 +1,15 @@
 package edu.uic.cs474.f21.a3.solution;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import edu.uic.cs474.f21.a3.DynamicDispatchExplainer;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class A1Solution implements DynamicDispatchExplainer {
 
@@ -31,24 +34,46 @@ public class A1Solution implements DynamicDispatchExplainer {
             new MethodInfo("notifyAll", new String[]{}),
             new MethodInfo("hashCode", new String[]{})
     );
+//
+//                d.getMethodsByName(methodName).stream().filter(x -> !x.isAbstract())
+//            .filter(x -> sameArgs(x, argumentTypes))
+//            .filter(x -> ((x.isStatic() || x.isPrivate()) && finalFlag));
 
     private void findUp(Map<String, ClassOrInterfaceDeclaration> classes, String receiverType, String methodName,Set<String> ret, String... argumentTypes)
     {
         boolean flag = false;
+
         ClassOrInterfaceDeclaration d = classes.get(receiverType);
         methodFound: while (d != null) {
             for (MethodDeclaration a : d.getMethodsByName(methodName)) {
+
                 if(!sameArgs(a, argumentTypes))
                     continue;
                 if ((a.isStatic() || a.isPrivate()) && flag)
                     continue;
-
-                if (a.isAbstract())
+                if(a.isAbstract())
                     continue;
 
-                ret.add(d.getName().asString());
-                break methodFound;
-            }
+                    ret.add(d.getName().asString());
+                    break methodFound;
+                }
+
+//
+//                ClassOrInterfaceDeclaration finalD = d;
+//                a.stream().filter(x-> !sameArgs(a, argumentTypes)).forEach(x->{
+//                    ret.add(finalD.getName().asString());
+//                });
+
+//                boolean finalFlag = flag;
+//                a.stream().filter(x-> ((!a.isStatic() || !a.isPrivate()) && !finalFlag)).forEach(x->{
+//                    ret.add(finalD.getName().asString());
+//                });
+//                a.stream().filter(x-> !a.isAbstract()).forEach(x->{
+//                    ret.add(finalD.getName().asString());
+//                });
+
+//                break methodFound;
+
             if (d.getExtendedTypes().isEmpty()) {
                 MethodInfo mi = new MethodInfo(methodName, argumentTypes);
                 if (methodsBelongingToJavaLangObject.contains(mi)) {
@@ -70,18 +95,14 @@ public class A1Solution implements DynamicDispatchExplainer {
             for (ClassOrInterfaceDeclaration d : classes.values()) {
                 if (d.getExtendedTypes().isNonEmpty() && d.getExtendedTypes(0).getNameAsString().equals(subClass.getNameAsString())) {
                     for (MethodDeclaration a : d.getMethodsByName(methodName)) {
-                        if (!sameArgs(a, argumentTypes))
-                            continue;
-                        if ((a.isStatic() || a.isPrivate()))
-                            continue;
+                        a.stream().filter(x-> sameArgs(a, argumentTypes))
+                                .filter(x-> (!(a.isStatic() || a.isPrivate())))
+                                .filter(x-> (!a.isAbstract()))
+                                .forEach(x->{
 
-                        if (a.isAbstract())
-                            continue;
-
-                        ret.add(d.getName().asString());
+                                    ret.add(d.getName().asString());
+                                });
                     }
-
-
                     ret.addAll(findDown(classes, d.getNameAsString(), methodName, argumentTypes));
                 }
         }
