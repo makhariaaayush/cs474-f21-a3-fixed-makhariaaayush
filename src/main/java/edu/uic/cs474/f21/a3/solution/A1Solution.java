@@ -20,7 +20,6 @@ public class A1Solution implements DynamicDispatchExplainer {
         for(int i = 0; i< argumentTypes.length; i ++){
             if(!a.getParameters().get(i).getTypeAsString().equals(argumentTypes[i])){
                 return false;
-
             }
         }
         return true;
@@ -34,10 +33,6 @@ public class A1Solution implements DynamicDispatchExplainer {
             new MethodInfo("notifyAll", new String[]{}),
             new MethodInfo("hashCode", new String[]{})
     );
-//
-//                d.getMethodsByName(methodName).stream().filter(x -> !x.isAbstract())
-//            .filter(x -> sameArgs(x, argumentTypes))
-//            .filter(x -> ((x.isStatic() || x.isPrivate()) && finalFlag));
 
     private void findUp(Map<String, ClassOrInterfaceDeclaration> classes, String receiverType, String methodName,Set<String> ret, String... argumentTypes)
     {
@@ -58,27 +53,17 @@ public class A1Solution implements DynamicDispatchExplainer {
                     break methodFound;
                 }
 
-//
-//                ClassOrInterfaceDeclaration finalD = d;
-//                a.stream().filter(x-> !sameArgs(a, argumentTypes)).forEach(x->{
-//                    ret.add(finalD.getName().asString());
-//                });
-
-//                boolean finalFlag = flag;
-//                a.stream().filter(x-> ((!a.isStatic() || !a.isPrivate()) && !finalFlag)).forEach(x->{
-//                    ret.add(finalD.getName().asString());
-//                });
-//                a.stream().filter(x-> !a.isAbstract()).forEach(x->{
-//                    ret.add(finalD.getName().asString());
-//                });
-
-//                break methodFound;
 
             if (d.getExtendedTypes().isEmpty()) {
                 MethodInfo mi = new MethodInfo(methodName, argumentTypes);
-                if (methodsBelongingToJavaLangObject.contains(mi)) {
-                    ret.add("java.lang.Object");
-                }
+                methodsBelongingToJavaLangObject.stream()
+                        .filter(x-> methodsBelongingToJavaLangObject.contains(mi))
+                        .findFirst().ifPresent(x->{
+                            ret.add("java.lang.Object");
+                        });
+//                if (methodsBelongingToJavaLangObject.contains(mi)) {
+//                    ret.add("java.lang.Object");
+//                }
                 break;
             }
             String superName = d.getExtendedTypes().get(0).getNameAsString();
@@ -95,6 +80,14 @@ public class A1Solution implements DynamicDispatchExplainer {
             for (ClassOrInterfaceDeclaration d : classes.values()) {
                 if (d.getExtendedTypes().isNonEmpty() && d.getExtendedTypes(0).getNameAsString().equals(subClass.getNameAsString())) {
                     for (MethodDeclaration a : d.getMethodsByName(methodName)) {
+//                        if(!sameArgs(a, argumentTypes))
+//                            continue;
+//                        if (a.isStatic() || a.isPrivate())
+//                            continue;
+//                        if(a.isAbstract())
+//                            continue;
+//                        ret.add(d.getName().asString());
+
                         a.stream().filter(x-> sameArgs(a, argumentTypes))
                                 .filter(x-> (!(a.isStatic() || a.isPrivate())))
                                 .filter(x-> (!a.isAbstract()))
@@ -145,7 +138,6 @@ public class A1Solution implements DynamicDispatchExplainer {
         public int hashCode() {
             int ret = name.hashCode();
             for (String arg : arguments) {
-
                 ret = ret ^ arg.hashCode();
             }
             return ret;
@@ -169,3 +161,12 @@ public class A1Solution implements DynamicDispatchExplainer {
         }
     }
 }
+//for (MethodDeclaration a : d.getMethodsByName(methodName)) {
+//        a.stream().filter(x-> sameArgs(a, argumentTypes))
+//        .filter(x-> (!(a.isStatic() || a.isPrivate())))
+//        .filter(x-> (!a.isAbstract()))
+//        .forEach(x->{
+//
+//        ret.add(d.getName().asString());
+//        });
+//        }

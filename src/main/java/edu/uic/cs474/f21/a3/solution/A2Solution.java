@@ -6,16 +6,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class A2Solution implements ObjectInspector {
-    String key;
-    String value;
 
 
     @Override
@@ -30,6 +25,7 @@ public class A2Solution implements ObjectInspector {
             fs = getAllFields(c, false);
         }
         Map<String, String> ret = new HashMap<>();
+
         fs.stream()
                 .forEach(f -> f.setAccessible(true) );
 
@@ -150,6 +146,7 @@ public class A2Solution implements ObjectInspector {
                 Stream<String> StreamF2 = Stream.of("#F");
                 Stream<String> StreamF3 = Stream.concat(StreamF1, StreamF2);
                 return StreamF3.reduce("", String::concat);
+//                return StreamF3.collect(Collectors.joining());
             case "java.lang.Double":
                 Stream<String> StreamD1 = Stream.of(Double.toString(((Double) val)));
                 Stream<String> StreamD2 = Stream.of("#D");
@@ -164,13 +161,13 @@ public class A2Solution implements ObjectInspector {
                 Stream<String> StreamB1 = Stream.of("0x");
                 Stream<String> StreamB2 = Stream.of(Integer.toHexString((Byte) val));
                 Stream<String> StreamB3 = Stream.concat(StreamB1, StreamB2);
-                return StreamB3.collect(Collectors.joining());
+                return StreamB3.reduce("", String::concat);
             case "java.lang.Character":
                 Stream<String> StreamC1 = Stream.of(Character.toString((Character) val));
-                return StreamC1.collect(Collectors.joining());
+                return StreamC1.reduce("", String::concat);
             case "java.lang.Boolean":
                 Stream<String> StreamBo1 = Stream.of(Boolean.toString((Boolean) val));
-                return StreamBo1.collect(Collectors.joining());
+                return StreamBo1.reduce("", String::concat);
             default:
                 return null;
 
