@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class A1Solution implements DynamicDispatchExplainer {
 
@@ -25,7 +25,7 @@ public class A1Solution implements DynamicDispatchExplainer {
         return true;
     }
 
-    private static Set<MethodInfo> methodsBelongingToJavaLangObject = Set.of(
+    private static final Set<MethodInfo> methodsBelongingToJavaLangObject = Set.of(
             new MethodInfo("toString", new String[]{}),
             new MethodInfo("equals", new String[]{"java.lang.Object"}),
             new MethodInfo("wait", new String[]{}),
@@ -88,13 +88,21 @@ public class A1Solution implements DynamicDispatchExplainer {
 //                            continue;
 //                        ret.add(d.getName().asString());
 
-                        a.stream().filter(x-> sameArgs(a, argumentTypes))
-                                .filter(x-> (!(a.isStatic() || a.isPrivate())))
-                                .filter(x-> (!a.isAbstract()))
-                                .forEach(x->{
+                        List b = a.stream().filter(x -> sameArgs(a, argumentTypes))
+                                .filter(x -> (!(a.isStatic() || a.isPrivate())))
+                                .filter(x -> (!a.isAbstract())).collect(Collectors.toList());
 
-                                    ret.add(d.getName().asString());
-                                });
+                        b.forEach(x -> {
+                            ret.add(d.getName().asString());
+                        });
+//                        for (Node x : b) {
+//                            ret.add(d.getName().asString());
+//                        }
+//                        a.stream().filter(x -> sameArgs(a, argumentTypes))
+//                                .filter(x -> (!(a.isStatic() || a.isPrivate())))
+//                                .filter(x -> (!a.isAbstract())).collect(Collectors.toList()).forEach(x -> {
+//                                    ret.add(d.getName().asString());
+//                                });
                     }
                     ret.addAll(findDown(classes, d.getNameAsString(), methodName, argumentTypes));
                 }
@@ -161,12 +169,3 @@ public class A1Solution implements DynamicDispatchExplainer {
         }
     }
 }
-//for (MethodDeclaration a : d.getMethodsByName(methodName)) {
-//        a.stream().filter(x-> sameArgs(a, argumentTypes))
-//        .filter(x-> (!(a.isStatic() || a.isPrivate())))
-//        .filter(x-> (!a.isAbstract()))
-//        .forEach(x->{
-//
-//        ret.add(d.getName().asString());
-//        });
-//        }

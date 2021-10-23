@@ -26,8 +26,7 @@ public class A2Solution implements ObjectInspector {
         }
         Map<String, String> ret = new HashMap<>();
 
-        fs.stream()
-                .forEach(f -> f.setAccessible(true) );
+        fs.forEach(f -> f.setAccessible(true) );
 
         for (Field f : fs) {
             try {
@@ -70,11 +69,9 @@ public class A2Solution implements ObjectInspector {
         return ret;
     }
     private Set<Field> getAllInterfaceField(Class<?> iface){
-        Set<Field> ret = new HashSet<>();
 
-        for(Field f : iface.getDeclaredFields()){
-            ret.add(f);
-        }
+        Set<Field> ret = new HashSet<>(Arrays.asList(iface.getDeclaredFields()));
+
         for(Class<?> i : iface.getInterfaces()){
             ret.addAll(getAllInterfaceField(i));
         }
@@ -145,8 +142,8 @@ public class A2Solution implements ObjectInspector {
                 Stream<String> StreamF1 = Stream.of(Float.toString((Float) val));
                 Stream<String> StreamF2 = Stream.of("#F");
                 Stream<String> StreamF3 = Stream.concat(StreamF1, StreamF2);
-                return StreamF3.reduce("", String::concat);
-//                return StreamF3.collect(Collectors.joining());
+//                return StreamF3.reduce("", String::concat);
+                return StreamF3.collect(Collectors.joining());
             case "java.lang.Double":
                 Stream<String> StreamD1 = Stream.of(Double.toString(((Double) val)));
                 Stream<String> StreamD2 = Stream.of("#D");
